@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import com.onetwentyonegwatt.MeasurementLib.BasicMeasurement;
+
 import com.onetwentyonegwatt.MeasurementLib.Measurement;
 
 import java.util.ArrayList;
@@ -17,17 +17,23 @@ public class MeasureListActivity extends ListActivity {
 
     //protected String[] mMeasurements =  {"one","two"};
     protected List<Measurement> mMeasurements = new ArrayList<Measurement>();
-
+    private MeasureSettings measureSettings;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mMeasurements.add(new BasicMeasurement("test", "1\" x 2\""));
+
+        try {
+            measureSettings = MeasureSettings.LoadSettings(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e("e","e",e);
+        }
+
         setContentView(R.layout.activity_measure_list);
-        ArrayAdapter<Measurement> adapter = new ArrayAdapter<Measurement>(this,android.R.layout.simple_list_item_1, mMeasurements);
+        ArrayAdapter<Measurement> adapter = new ArrayAdapter<Measurement>(this, android.R.layout.simple_list_item_1, measureSettings.Config.Measurements);
         try {
             setListAdapter(adapter);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             Log.e("test", "test", e);
         }
     }
