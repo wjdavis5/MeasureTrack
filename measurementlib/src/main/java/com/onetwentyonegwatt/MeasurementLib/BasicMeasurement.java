@@ -6,7 +6,7 @@ package com.onetwentyonegwatt.MeasurementLib;
  * Essentially this is nothing more than storing of a simple string with a name currently
  * Thats all I really need it to be for my upcoming project
  */
-public class BasicMeasurement extends BaseMeasurement {
+public class BasicMeasurement extends Measurement {
 
 public BasicMeasurement(String name, String value){
     setName(name);

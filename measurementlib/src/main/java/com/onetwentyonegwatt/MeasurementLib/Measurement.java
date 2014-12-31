@@ -1,4 +1,17 @@
 package com.onetwentyonegwatt.MeasurementLib;
 
-public class Measurement {
+/**
+ * Created by William.Davis on 12/31/2014.
+ */
+public abstract class Measurement {
+
+    String Name;
+    String Value;
+    abstract void setName(String name);
+    abstract Object getName();
+    abstract void setValue(String value);
+    abstract Object getValue();
+
+    @Override
+    abstract public String toString();
 }
