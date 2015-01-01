@@ -24,7 +24,8 @@ public class MeasureListActivity extends ListActivity {
 
         try {
             measureSettings = MeasureSettings.LoadSettings(this);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
             Log.e("e","e",e);
         }

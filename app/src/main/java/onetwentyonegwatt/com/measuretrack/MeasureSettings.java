@@ -38,26 +38,27 @@ public class MeasureSettings {
 
    public static MeasureSettings LoadSettings(Activity activity) throws Exception {
        MeasureSettings measureSettings = new MeasureSettings(activity);
-       measureSettings.json = getStringFromFile(SETTINGS_FILE_NAME);
+       measureSettings.json = measureSettings.getStringFromFile(SETTINGS_FILE_NAME);
        if(measureSettings.json.length() != 0) {
            measureSettings.Config = gson.fromJson(measureSettings.json, Config.class);
        }
-
+       measureSettings.SaveSettings();
        return measureSettings;
    }
 
-    public Boolean SaveSettings() {
+    public boolean SaveSettings() {
         try {
             FileOutputStream fileOutputStream = mActivity.openFileOutput(SETTINGS_FILE_NAME, Context.MODE_PRIVATE);
-            fileOutputStream.write(gson.toJson(this.Config).getBytes());
+            this.json = gson.toJson(this.Config);
+            fileOutputStream.write(this.json.getBytes());
             fileOutputStream.close();
-            return Boolean.TRUE;
+            return true;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            return Boolean.FALSE;
+            return false;
         } catch (IOException e) {
             e.printStackTrace();
-            return Boolean.FALSE;
+            return false;
         }
     }
 
@@ -72,11 +73,11 @@ public class MeasureSettings {
         return sb.toString();
     }
 
-    private static String getStringFromFile (String filePath) throws Exception {
+    private String getStringFromFile (String filePath) throws Exception {
         File fl = new File(filePath);
         FileInputStream fin = null;
         try {
-            fin = new FileInputStream(fl);
+            fin = mActivity.openFileInput(SETTINGS_FILE_NAME);
             String ret = convertStreamToString(fin);
             fin.close();
             return ret;
