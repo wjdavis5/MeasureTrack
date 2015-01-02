@@ -1,0 +1,59 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.onetwentyonegwatt.measuretrack.NewMeasurementFragment"
+    android:background="#c83674ff"
+    android:padding="15dp"
+    android:id="@+id/newMeasureFragment">
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/newMeasurement"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#80ffffff"
+        android:textSize="24dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtName"
+        android:inputType="textCapWords"
+        android:background="#80ffffff"
+        android:hint="@string/newMeasurementName"
+        android:layout_above="@+id/txtValue"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="90dp"
+        android:textSize="24dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtValue"
+        android:inputType="textCapWords"
+        android:background="#80ffffff"
+        android:hint="@string/newMeasurementValue"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="24dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/newMeasurementSaveButton"
+        android:id="@+id/btnSaveMeasurement"
+        android:layout_below="@+id/txtValue"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="90dp"
+        android:background="#80ffffff"
+        />
+</RelativeLayout>

@@ -11,6 +11,7 @@ public class BasicMeasurement extends Measurement {
 public BasicMeasurement(String name, String value){
     setName(name);
     setValue(value);
+    MyType = this.getClass().getCanonicalName();
 }
     @Override
     public void setName(String name) {

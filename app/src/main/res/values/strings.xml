@@ -5,4 +5,12 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="emptyListMsg">No Measurements!</string>
+    <string name="newMeasurement">New Measurement</string>
+    <string name="newMeasurementName">Name</string>
+    <string name="newMeasurementValue">Value</string>
+    <string name="newMeasurementSaveButton">Save Measurement</string>
+    <string-array name="menuList">
+        <item>New Measurement</item>
+    </string-array>
+
 </resources>

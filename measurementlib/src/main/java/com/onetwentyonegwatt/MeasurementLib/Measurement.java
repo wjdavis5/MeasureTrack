@@ -1,5 +1,7 @@
 package com.onetwentyonegwatt.MeasurementLib;
 
+import java.lang.reflect.Type;
+
 /**
  * Created by William.Davis on 12/31/2014.
  */
@@ -7,6 +9,7 @@ public abstract class Measurement {
 
     String Name;
     String Value;
+    String MyType;
     abstract void setName(String name);
     abstract Object getName();
     abstract void setValue(String value);
