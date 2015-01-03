@@ -56,7 +56,7 @@ public class MeasureListActivity extends ListActivity {
     protected void setupList()
     {  setContentView(R.layout.activity_measure_list);
         MainArrayAdapter =
-                new ArrayAdapter<Measurement>(this, android.R.layout.simple_list_item_2, measureSettings.Config.Measurements);
+                new ArrayAdapter<Measurement>(this, android.R.layout.simple_list_item_1, measureSettings.Config.Measurements);
 
         try {
             setListAdapter(MainArrayAdapter);
