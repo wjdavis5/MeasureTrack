@@ -12,14 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.onetwentyonegwatt.MeasurementLib.BasicMeasurement;
 import com.onetwentyonegwatt.MeasurementLib.Measurement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import onetwentyonegwatt.com.measuretrack.R;
@@ -31,19 +29,19 @@ public class MeasureListActivity extends ListActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     public MeasureSettings measureSettings;
-
+    
 
 
     protected void onCreateInitializeDrawer(Bundle savedInstanceState)
     {
         mMenuList = getResources().getStringArray(R.array.menuList);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+                mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         // Set the adapter for the list view
-
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, mMenuList));
+        ArrayAdapter<String> arrayAdapter =
+                new ArrayAdapter<String>(this,R.layout.drawer_list_item,R.id.txtItemEntry,mMenuList);
+        mDrawerList.setAdapter(arrayAdapter);
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
     }
@@ -58,9 +56,11 @@ public class MeasureListActivity extends ListActivity {
     }
     protected void setupList()
     {  setContentView(R.layout.activity_measure_list);
-        ArrayAdapter<Measurement> adapter = new ArrayAdapter<Measurement>(this, android.R.layout.simple_list_item_1, measureSettings.Config.Measurements);
+        ArrayAdapter<Measurement> adapter =
+                new ArrayAdapter<Measurement>(this, android.R.layout.simple_list_item_1, measureSettings.Config.Measurements);
         try {
             setListAdapter(adapter);
+
         } catch (Exception e) {
             Log.e("test", "test", e);
         }
@@ -98,6 +98,19 @@ public class MeasureListActivity extends ListActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        FragmentManager fragmentManager = getFragmentManager();
+        Measurement item = measureSettings.Config.Measurements.get(position);
+        ViewBasicFragment viewBasicFragment = ViewBasicFragment.newInstance(item);
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, viewBasicFragment)
+                .addToBackStack("a")
+                .commit();
+    }
+
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
@@ -109,18 +122,20 @@ public class MeasureListActivity extends ListActivity {
 
     private void selectItem(int position) {
         // Create a new fragment and specify the planet to show based on position
-        Fragment fragment = new CreateNewFragment();
-        Bundle args = new Bundle();
-        //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-        fragment.setArguments(args);
-
-
-        // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, fragment)
-                .commit();
-
+        if(position == 0) {
+            Fragment fragment = new CreateNewFragment();
+            Bundle args = new Bundle();
+            //args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+            fragment.setArguments(args);
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_frame, fragment)
+                    .addToBackStack("a")
+                    .commit();
+        }
+        else{
+            Toast.makeText(this,R.string.NotSupported,Toast.LENGTH_SHORT).show();
+        }
         // Highlight the selected item, update the title, and close the drawer
         mDrawerList.setItemChecked(position, true);
         //setTitle(mPlanetTitles[position]);

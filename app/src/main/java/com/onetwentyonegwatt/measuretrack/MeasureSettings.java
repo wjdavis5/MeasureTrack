@@ -28,8 +28,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+
+import onetwentyonegwatt.com.measuretrack.R;
 
 
 /**
@@ -51,8 +54,8 @@ public class MeasureSettings {
         gsonBuilder = new GsonBuilder();
         measurementAClassAdapter = new AClassAdapter<>();
         gsonBuilder.registerTypeAdapter(Config.class,new AClassAdapter<>());
-        Config = new Config();
     }
+
 
    public static MeasureSettings LoadSettings(Activity activity) throws Exception {
        MeasureSettings measureSettings = new MeasureSettings(activity);
@@ -65,13 +68,11 @@ public class MeasureSettings {
           JsonElement measurements = o.get("Measurements");
           for(JsonElement item : measurements.getAsJsonArray())
            {
-               // deserialize(item,Class.forName(item.getAsJsonObject().get("MyType").getAsString()),context);
                String className = item.getAsJsonObject().get("MyType").getAsString();
-               Class<?> type = Class.forName(className);
-               Measurement l = (Measurement)measureSettings.gsonBuilder.create().fromJson(item,Class.forName(className));
+               Measurement l = (Measurement)measureSettings.gsonBuilder.create().fromJson(item, Class.forName(className));
                measureSettings.Config.Measurements.add(l);
            }
-           //measureSettings.Config = measureSettings.gsonBuilder.create().fromJson(measureSettings.json,Config.class);
+
        }
        measureSettings.SaveSettings();
        return measureSettings;
@@ -135,14 +136,9 @@ public class MeasureSettings {
             MyType = this.getClass().getCanonicalName();
         }
 
-
-
     }
 
     public class AClassAdapter<A>  implements JsonSerializer<A>, JsonDeserializer<A> {
-
-
-
         @Override
         public JsonElement serialize(A src, Type typeOfSrc, JsonSerializationContext context) {
             JsonObject result = new JsonObject();
@@ -158,10 +154,6 @@ public class MeasureSettings {
                 throws JsonParseException {
             JsonObject jsonObject = json.getAsJsonObject();
             String type = jsonObject.get("MyType").getAsString();
-
-
-
-
             try {
                 // String thePackage = "com.onetwentyonegwatt.MeasurementLib";
                 return context.deserialize(json, Class.forName(type));

@@ -1,11 +1,12 @@
 package com.onetwentyonegwatt.MeasurementLib;
 
-import java.lang.reflect.Type;
+
+import java.io.Serializable;
 
 /**
  * Created by William.Davis on 12/31/2014.
  */
-public abstract class Measurement {
+public abstract class Measurement implements Serializable {
 
     String Name;
     String Value;

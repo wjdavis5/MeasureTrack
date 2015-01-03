@@ -2,6 +2,8 @@ package com.onetwentyonegwatt.measuretrack;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -43,30 +45,28 @@ public class CreateNewFragment extends Fragment implements View.OnClickListener 
         btnSave.setOnClickListener(this);
         return rootView;
     }
-    public void saveMeasurementClickHandler(View target) {
+    public boolean saveMeasurementClickHandler(View target) {
         EditText txtName = (EditText) mActivity.findViewById(R.id.txtName);
         EditText txtValue = (EditText) mActivity.findViewById(R.id.txtValue);
         if(txtName.getText().toString().isEmpty() || txtValue.getText().toString().isEmpty()) {
             Toast.makeText(mActivity, "Please provide values for all fields", Toast.LENGTH_LONG).show();
-            return;
+            return false;
         }
         //TODO Update to use generics
-        // btnSave = (Button) findViewById(R.id.btnSaveMeasurement);
         Measurement nM = new BasicMeasurement(txtName.getText().toString(),
                 txtValue.getText().toString());
 
         measureSettings.Config.Measurements.add(nM);
         measureSettings.SaveSettings();
+        return true;
 
     }
 
-    /**
-     * Called when a view has been clicked.
-     *
-     * @param v The view that was clicked.
-     */
     @Override
     public void onClick(View v) {
-        saveMeasurementClickHandler(v);
+        if(saveMeasurementClickHandler(v))
+        {FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.popBackStackImmediate();}
+
     }
 }

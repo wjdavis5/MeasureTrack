@@ -9,8 +9,14 @@
     <string name="newMeasurementName">Name</string>
     <string name="newMeasurementValue">Value</string>
     <string name="newMeasurementSaveButton">Save Measurement</string>
+
     <string-array name="menuList">
-        <item>New Measurement</item>
+        <item>New Basic</item>
+        <item>New Linear</item>
+        <item>New 2Dim</item>
     </string-array>
+
+    <string name="NotSupported">Not Currently Supported!</string>
+    <string name="fragBasicMeasurement">Basic Measurement</string>
 
 </resources>
