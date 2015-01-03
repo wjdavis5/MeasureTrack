@@ -5,8 +5,10 @@ import android.app.FragmentManager;
 import android.app.ListActivity;
 import android.os.Bundle;
 
+import android.os.Handler;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,10 +17,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.onetwentyonegwatt.MeasurementLib.BasicMeasurement;
 import com.onetwentyonegwatt.MeasurementLib.Measurement;
-
-import java.util.List;
 
 import onetwentyonegwatt.com.measuretrack.R;
 
@@ -29,8 +28,8 @@ public class MeasureListActivity extends ListActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     public MeasureSettings measureSettings;
-    
-
+    public ArrayAdapter<Measurement> MainArrayAdapter;
+    static final int DRAWER_DELAY = 200;
 
     protected void onCreateInitializeDrawer(Bundle savedInstanceState)
     {
@@ -38,7 +37,7 @@ public class MeasureListActivity extends ListActivity {
                 mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        // Set the adapter for the list view
+        // Set the MainArrayAdapter for the list view
         ArrayAdapter<String> arrayAdapter =
                 new ArrayAdapter<String>(this,R.layout.drawer_list_item,R.id.txtItemEntry,mMenuList);
         mDrawerList.setAdapter(arrayAdapter);
@@ -56,10 +55,11 @@ public class MeasureListActivity extends ListActivity {
     }
     protected void setupList()
     {  setContentView(R.layout.activity_measure_list);
-        ArrayAdapter<Measurement> adapter =
-                new ArrayAdapter<Measurement>(this, android.R.layout.simple_list_item_1, measureSettings.Config.Measurements);
+        MainArrayAdapter =
+                new ArrayAdapter<Measurement>(this, android.R.layout.simple_list_item_2, measureSettings.Config.Measurements);
+
         try {
-            setListAdapter(adapter);
+            setListAdapter(MainArrayAdapter);
 
         } catch (Exception e) {
             Log.e("test", "test", e);
@@ -91,14 +91,24 @@ public class MeasureListActivity extends ListActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+
+        if(id == R.id.action_AddEntry)
+        {
+            new Handler().postDelayed(openDrawerRunnable(), DRAWER_DELAY);
         }
 
         return super.onOptionsItemSelected(item);
     }
 
+    private Runnable openDrawerRunnable() {
+        return new Runnable() {
 
+            @Override
+            public void run() {
+                mDrawerLayout.openDrawer(Gravity.LEFT);
+            }
+        };
+    }
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);

@@ -2,58 +2,48 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.onetwentyonegwatt.measuretrack.NewMeasurementFragment"
-    android:background="#c83674ff"
+    android:background="@color/material_blue_grey_900"
     android:padding="15dp"
     android:id="@+id/newMeasureFragment">
 
 
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/newMeasurement"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="#80ffffff"
-        android:textSize="24dp"
-        android:textStyle="bold" />
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="@string/fragBasicMeasurement"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:textColor="@color/background_material_light" />
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtName"
-        android:inputType="textCapWords"
-        android:background="#80ffffff"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:hint="@string/newMeasurementName"
         android:layout_above="@+id/txtValue"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="90dp"
-        android:textSize="24dp" />
+        android:textColor="@color/background_floating_material_light"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtValue"
-        android:inputType="textCapWords"
-        android:background="#80ffffff"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:hint="@string/newMeasurementValue"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textSize="24dp" />
+        android:textColor="@color/background_floating_material_light"/>
+
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/newMeasurementSaveButton"
         android:id="@+id/btnSaveMeasurement"
-        android:layout_below="@+id/txtValue"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="90dp"
         android:background="#80ffffff"
-        />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@drawable/ic_action_send"/>
 </RelativeLayout>

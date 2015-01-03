@@ -3,6 +3,7 @@ package com.onetwentyonegwatt.measuretrack;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.widget.ListView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -86,6 +87,8 @@ public class MeasureSettings {
            // this.json = gsonBuilder.create().toJson(this.Config);
             fileOutputStream.write(this.json.getBytes());
             fileOutputStream.close();
+            if(((MeasureListActivity)mActivity).MainArrayAdapter != null)
+                ((MeasureListActivity)mActivity).MainArrayAdapter.notifyDataSetChanged();
             return true;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
